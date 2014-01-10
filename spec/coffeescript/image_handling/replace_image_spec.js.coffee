@@ -1,11 +1,19 @@
+
+
 describe "ReplaceImage", ->
+
   beforeEach ->
     flag = false
+
+
 
     @r_img = undefined
     that = @
 
-    loadFixtures "image_replace"
+    # throw(jasmine.getFixtures().fixturesPath)
+
+    loadFixtures "image_replace.html"
+    # throw $("body").html()
 
     @holder = document.getElementsByClassName("screenshots")[0];
     @holder.setAttribute('id',"testHolder")
@@ -15,10 +23,13 @@ describe "ReplaceImage", ->
       flag = true
       that.r_img = new ReplaceImage(undefined, true, {}, false)
 
+
+
     waitsFor ->
       flag
 
   it 'It should exist', ->
+    # throw(@r_img)
     expect(@r_img).toBeDefined()
 
 
@@ -26,7 +37,7 @@ describe "ReplaceImage", ->
 
     it 'Should find the main image', ->
       @img = @r_img.findImage()
-      expect(@img.src).toEqual("http://localhost:3000/uploads/asset/file/1/AB0004_about_1.2.1.jpg")
+      expect(@img.src).toMatch("/uploads/asset/file/1/AB0004_about_1.2.1.jpg")
       expect(@img.alt).toEqual("Ab0004_about_1.2.1")
 
   describe "Should get new image details", ->
@@ -50,7 +61,7 @@ describe "ReplaceImage", ->
 
 
       change = @r_img.changeImg(@img, @attr)
-      expect(@img.src).toEqual("http://localhost:3000/assets/Evil-Bert.jpg")
+      expect(@img.src).toMatch("/assets/Evil-Bert.jpg")
       expect(@img.alt).toEqual("Testing")
       expect(change).toBeTruthy()
 

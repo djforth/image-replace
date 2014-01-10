@@ -1,13 +1,11 @@
 (function() {
-  var jasmineFolder, jsFolder, lib, specHelpers;
+  var jsFolder, lib, specHelpers;
 
   jsFolder = "/assets/javascripts/";
 
   lib = jsFolder + "lib/";
 
   specHelpers = "/tests/lib/";
-
-  jasmineFolder = specHelpers + "jasmine-1.3.1/";
 
   this.styles = document.createElement("link");
 
@@ -23,16 +21,16 @@
     baseUrl: "/tests/",
     urlArgs: "cb=" + Math.random(),
     paths: {
-      jasmine: jasmineFolder + "jasmine",
-      jasmineHtml: jasmineFolder + "jasmine-html",
-      'jquery': lib + 'jquery.min',
-      'underscore': lib + 'underscore-min',
-      'sinon': specHelpers + 'sinon-1.6.0',
-      'jasmine-sinon': specHelpers + 'jasmine-sinon',
-      'jasmine-jquery': specHelpers + 'jasmine-jquery',
-      utils: jsFolder + 'utils',
-      image_handling: jsFolder + "image_handling",
-      imgh_spec: "image_handling",
+      jasmine: "/tests/lib/jasmine-1.3.1/jasmine",
+      jasmineHtml: "/tests/lib/jasmine-1.3.1/jasmine-html",
+      'jquery': '/assets/javascripts/lib/jquery.min',
+      'underscore': '/assets/javascripts/lib/underscore-min',
+      'sinon': '/tests/lib/sinon-1.6.0',
+      'jasmineSinon': '/tests/lib/jasmine-sinon',
+      'jasmineJquery': '/tests/lib/jasmine-jquery',
+      utils: '/assets/javascripts/utils',
+      image_handling: "/assets/javascripts/image_handling",
+      imgh_spec: "specs/image_handling",
       u_spec: "utils"
     },
     shim: {
@@ -50,7 +48,7 @@
     }
   });
 
-  require(['jquery', 'underscore', "jasmine", 'jasmine-jquery', "sinon", "jasmine-sinon"], function() {
+  require(['jquery', 'underscore', 'jasmine', "jasmineHtml", "jasmineJquery"], function() {
     var htmlReporter, jasmineEnv, specs;
     _.templateSettings = {
       interpolate: /\[\%\=(.+?)\%\]/g,
@@ -65,9 +63,8 @@
     jasmineEnv.specFilter = function(spec) {
       return htmlReporter.specFilter(spec);
     };
-    specs = ['imgh_spec/replace_image_spec', 'u_spec/loader_spec', 'u_spec/manage_elements_spec'];
+    specs = ['imgh_spec/replace_image_spec'];
     return require(specs, function() {
-      console.log("huh?");
       return jasmineEnv.execute();
     });
   });

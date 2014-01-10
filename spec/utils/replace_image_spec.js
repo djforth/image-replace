@@ -5,7 +5,7 @@
       flag = false;
       this.r_img = void 0;
       that = this;
-      loadFixtures("image_replace");
+      loadFixtures("image_replace.html");
       this.holder = document.getElementsByClassName("screenshots")[0];
       this.holder.setAttribute('id', "testHolder");
       require(['image_handling/replace_image'], function(ReplaceImage) {
@@ -22,7 +22,7 @@
     describe('Should find an image', function() {
       return it('Should find the main image', function() {
         this.img = this.r_img.findImage();
-        expect(this.img.src).toEqual("http://localhost:3000/uploads/asset/file/1/AB0004_about_1.2.1.jpg");
+        expect(this.img.src).toMatch("/uploads/asset/file/1/AB0004_about_1.2.1.jpg");
         return expect(this.img.alt).toEqual("Ab0004_about_1.2.1");
       });
     });
@@ -52,7 +52,7 @@
       it("Should set new image details", function() {
         var change;
         change = this.r_img.changeImg(this.img, this.attr);
-        expect(this.img.src).toEqual("http://localhost:3000/assets/Evil-Bert.jpg");
+        expect(this.img.src).toMatch("/assets/Evil-Bert.jpg");
         expect(this.img.alt).toEqual("Testing");
         return expect(change).toBeTruthy();
       });

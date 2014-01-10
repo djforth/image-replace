@@ -40,9 +40,9 @@ module.exports = function(grunt) {
       },
       test: {
         expand: true,
-        cwd: 'tests/specs/coffeescript',
+        cwd: 'spec/coffeescript',
         src: ['**/*.coffee'],
-        dest: 'tests/specs',
+        dest: 'spec',
         ext: '.js'
       }
     },
@@ -54,9 +54,120 @@ module.exports = function(grunt) {
         }
       }
     },
+
     clean: {
       build: ["assets/stylesheets/*"],
     },
+
+    htmlmin: {
+        dist: {
+            options: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeEmptyAttributes: true,
+                removeCommentsFromCDATA: true,
+                removeRedundantAttributes: true,
+                collapseBooleanAttributes: true
+            },
+            files: {
+                // Destination : Source
+                './index-min.html': './index.html'
+            }
+        }
+    },
+
+    jasmine: {
+      require: {
+        src: '/assets/javascripts/**/*.js',
+        options: {
+          styles:"./assets/stylesheets/screen.css",
+          specs: 'spec/**/*_spec.js',
+          keepRunner:true,
+          // urlArgs: "cb=" + Math.random(),
+          vendor:['assets/javascripts/lib/jquery.min.js', 'spec/lib/sinon-1.6.0.js', 'spec/lib/jasmine-jquery.js','spec/lib/jasmine-sinon.js'],
+          // ,
+          host: 'http://127.0.0.1:8000/',
+          template: require('grunt-template-jasmine-requirejs'),
+          templateOptions: {
+            requireConfig:{
+              mainConfigFile:'./assets/javascript/main.js',
+              baseUrl: "spec/",
+              urlArgs: "cb=" + Math.random(),
+              paths: {
+                'jquery': '/assets/javascripts/lib/jquery.min',
+                'underscore': '/assets/javascripts/lib/underscore-min',
+                'sinon': 'lib/sinon-1.6.0',
+                'jasmineSinon': 'lib/jasmine-sinon',
+                'jasmineJquery': 'lib/jasmine-jquery',
+                utils:'/assets/javascripts/utils',
+                image_handling:"/assets/javascripts/image_handling"
+              }
+            }
+          }
+
+        }
+      }
+    },
+
+  //   jshint: {
+  //     files: ['Gruntfile.js', 'assets/javascripts/**/*.js', , 'spec/**/*_spec.js'],
+  //     options: {
+  //         curly:   true,
+  //         eqeqeq:  true,
+  //         immed:   true,
+  //         latedef: true,
+  //         newcap:  true,
+  //         noarg:   true,
+  //         sub:     true,
+  //         undef:   true,
+  //         boss:    true,
+  //         eqnull:  true,
+  //         browser: true,
+
+  //         globals: {
+  //             // AMD
+  //             module:     true,
+  //             require:    true,
+  //             requirejs:  true,
+  //             define:     true,
+
+  //             // Environments
+  //             console:    true,
+
+  //             // General Purpose Libraries
+  //             $:          true,
+  //             jQuery:     true,
+
+  //             // Testing
+  //             sinon:      true,
+  //             describe:   true,
+  //             it:         true,
+  //             expect:     true,
+  //             beforeEach: true,
+  //             afterEach:  true
+  //         }
+  //     }
+  // },
+
+    requirejs: {
+        compile: {
+            options: {
+                baseUrl: './assets/javascripts',
+                mainConfigFile: './assets/javascripts/main.js',
+                dir: './assets/build/',
+                fileExclusionRegExp: /^\.|node_modules|Gruntfile|\.md|package.json/,
+                // optimize: 'none',
+                modules: [
+                    {
+                        name: 'main'
+                        // include: ['module'],
+                        // exclude: ['module']
+                    }
+                ]
+            }
+        }
+    },
+
     watch: {
       options: {
         livereload: true,
@@ -93,4 +204,8 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['uglify', 'compass', 'imagemin', "coffee"]);
   grunt.registerTask('dev', ['connect', 'watch']);
+
+  grunt.registerTask('test', ['connect', 'jasmine']);
+
+  grunt.registerTask('release', ['test', 'requirejs', 'compass', 'imagemin']);
 };
