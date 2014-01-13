@@ -5,7 +5,7 @@ define (require) ->
 
   class ReplaceImage
     # holderID:"container"
-    caption:false;
+    caption:false
     fig:"figure"
     element:".screenshots li a"
     main_img:"main_image"
@@ -30,10 +30,10 @@ define (require) ->
 
       $(@holder).on "click", @element, {callback:@replaceImage, that:@}, (e) ->
         if  e.preventDefault
-          e.preventDefault();
+          e.preventDefault()
         else
-          e.cancelBubble = true;
-          e.returnValue = false;
+          e.cancelBubble = true
+          e.returnValue = false
 
         e.data.callback.call(e.data.that, e.target)
 

@@ -13,7 +13,7 @@ require [
   'image_handling/replace_image'
 ], (ReplaceImage) ->
 
-    replace = document.querySelectorAll(".screenshots")
+  replace = document.querySelectorAll(".screenshots")
 
-    if replace.length > 0
-      @replace_image = new ReplaceImage()
+  if replace.length > 0
+    @replace_image = new ReplaceImage()

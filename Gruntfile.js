@@ -46,6 +46,16 @@ module.exports = function(grunt) {
         ext: '.js'
       }
     },
+
+    coffeelint: {
+      app: ['assets/preprocessed_files/coffeescript/**/*.coffee', 'spec/coffeescript/**/*_spec.coffee'],
+      options: {
+        'max_line_length': {
+          'level': 'ignore'
+        }
+      }
+    },
+
     connect: {
       server: {
         options: {
@@ -109,46 +119,6 @@ module.exports = function(grunt) {
       }
     },
 
-  //   jshint: {
-  //     files: ['Gruntfile.js', 'assets/javascripts/**/*.js', , 'spec/**/*_spec.js'],
-  //     options: {
-  //         curly:   true,
-  //         eqeqeq:  true,
-  //         immed:   true,
-  //         latedef: true,
-  //         newcap:  true,
-  //         noarg:   true,
-  //         sub:     true,
-  //         undef:   true,
-  //         boss:    true,
-  //         eqnull:  true,
-  //         browser: true,
-
-  //         globals: {
-  //             // AMD
-  //             module:     true,
-  //             require:    true,
-  //             requirejs:  true,
-  //             define:     true,
-
-  //             // Environments
-  //             console:    true,
-
-  //             // General Purpose Libraries
-  //             $:          true,
-  //             jQuery:     true,
-
-  //             // Testing
-  //             sinon:      true,
-  //             describe:   true,
-  //             it:         true,
-  //             expect:     true,
-  //             beforeEach: true,
-  //             afterEach:  true
-  //         }
-  //     }
-  // },
-
     requirejs: {
         compile: {
             options: {
@@ -199,13 +169,15 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   // grunt.loadNpmTasks('grunt-contrib-uglify');
   // grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-coffeelint');
   require('load-grunt-tasks')(grunt);
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'compass', 'imagemin', "coffee"]);
+  grunt.registerTask('default', ['uglify', 'compass', 'imagemin', "coffee", "coffeelint"]);
+
   grunt.registerTask('dev', ['connect', 'watch']);
 
   grunt.registerTask('test', ['connect', 'jasmine']);
 
-  grunt.registerTask('release', ['test', 'requirejs', 'compass', 'imagemin']);
+  grunt.registerTask('release', ['test', 'compass', 'imagemin', "coffee", "coffeelint", "htmlmin", 'uglify', 'requirejs']);
 };

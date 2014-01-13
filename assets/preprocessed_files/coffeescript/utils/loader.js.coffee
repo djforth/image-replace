@@ -21,25 +21,25 @@ define (require) ->
       @loader
 
     getElementSize:(h)->
-      @width = h.clientWidth || h.scrollWidth || h.offsetWidth;
-      @height = h.clientHeight || h.scrollHeight || h.offsetHeight;
+      @width = h.clientWidth || h.scrollWidth || h.offsetWidth
+      @height = h.clientHeight || h.scrollHeight || h.offsetHeight
       [@width, @height]
 
 
     getHolderSize:()->
-     if @holder == document.body
-      return @getWindowSize();
-     else if _.isElement(@holder)
-       return @getElementSize(@holder)
+      if @holder == document.body
+        return @getWindowSize()
+      else if _.isElement(@holder)
+        return @getElementSize(@holder)
 
 
     getWindowSize:()->
-     d = document
-     root= d.documentElement
-     body= d.body;
-     @width = window.innerWidth || root.clientWidth || body.clientWidth
-     @height = window.innerHeight || root.clientHeight || body.clientHeight
-     [@width, @height]
+      d = document
+      root= d.documentElement
+      body= d.body
+      @width = window.innerWidth || root.clientWidth || body.clientWidth
+      @height = window.innerHeight || root.clientHeight || body.clientHeight
+      [@width, @height]
 
     loadItem:(item)->
       @removeLoader()

@@ -1,10 +1,14 @@
-Responsive-carousel
+Image Replace
 ===================
 
 A responsive carousel example using Require, CoffeeScript and Compass
 
 # Requirements
 
+* Grunt
+* Compass
+* Node & NPM
+* Phantomjs
 
 ## JavaScript
 All JS written in CoffeeScript - http://coffeescript.org/
@@ -20,25 +24,8 @@ Written in SCSS - http://sass-lang.com/
 
 Using Compass - http://compass-style.org/help/
 
-```bash
- compass watch
-```
 
-# CoffeeScript set up
 
-To install CoffeeScript first install node (would recommend Homebrew for this), then follow http://coffeescript.org/#installation
 
-To compile Javascript files as changing run from root folder:
 
-### Main JS
-In terminal:
-```bash
-coffee -o assets/javascripts/ -cw assets/preproccessed_files/coffeescript/
-```
-
-### Tests
-From Tests folder:
-```bash
-coffee -o specs/ -cw specs/coffeescript/
-```
 

@@ -1,9 +1,0 @@
-
-main.js
-----------------
-lib/jquery.min.js
-lib/underscore-min.js
-utils/manage_elements.js
-utils/loader.js
-image_handling/replace_image.js
-main.js

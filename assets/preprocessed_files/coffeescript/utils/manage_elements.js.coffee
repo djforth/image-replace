@@ -9,7 +9,7 @@ define (require) ->
 
 
     createElement:(el, options={})->
-      item = document.createElement(el);
+      item = document.createElement(el)
       for opt, value of options
         if options.hasOwnProperty(opt)
           if opt == ("textNode" || "text")
