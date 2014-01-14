@@ -1,7 +1,7 @@
 Image Replace
 ===================
 
-A responsive carousel example using Require, CoffeeScript and Compass
+A image replacement example using Require, CoffeeScript and Compass
 
 # Requirements
 
@@ -23,6 +23,32 @@ Underscore a Dependancy - http://underscorejs.org/
 Written in SCSS - http://sass-lang.com/
 
 Using Compass - http://compass-style.org/help/
+
+## Grunt Command
+
+Run local version
+
+```bash
+
+grunt dev
+
+```
+
+Run Tests
+
+```bash
+
+grunt test
+
+```
+
+Run For production
+
+```bash
+
+grunt release
+
+```
 
 
 
