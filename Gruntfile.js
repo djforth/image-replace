@@ -6,12 +6,12 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      build: {
-        src: 'assets/javascript/main.js',
-        dest: 'assets/build/javascript/main.min.js'
-      }
-    },
+    // uglify: {
+    //   build: {
+    //     src: 'assets/javascript/main.js',
+    //     dest: 'assets/build/javascript/main.min.js'
+    //   }
+    // },
     compass: {                  // Task
       dist: {                   // Target
         options: {
@@ -65,6 +65,17 @@ module.exports = function(grunt) {
       }
     },
 
+    csslint: {
+      medium: {
+        options: {
+          "star-property-hack":false,
+          "qualified-headings":false,
+          "unique-headings":false
+        },
+        src: ['assets/stylesheets/*.css']
+      }
+    },
+
     clean: {
       build: ["assets/stylesheets/*"],
     },
@@ -86,6 +97,16 @@ module.exports = function(grunt) {
         }
     },
 
+    validation: {
+        options: {
+          reset: true,
+          stoponerror: false
+        },
+        files: {
+          src: ['index.html']
+        }
+    },
+
     jasmine: {
       require: {
         src: '/assets/javascripts/**/*.js',
@@ -94,8 +115,13 @@ module.exports = function(grunt) {
           specs: 'spec/**/*_spec.js',
           keepRunner:true,
           // urlArgs: "cb=" + Math.random(),
-          vendor:['assets/javascripts/lib/jquery.min.js', 'spec/lib/sinon-1.6.0.js', 'spec/lib/jasmine-jquery.js','spec/lib/jasmine-sinon.js'],
-          // ,
+          vendor:[
+            'assets/javascripts/lib/jquery.min.js',
+            '/assets/javascripts/lib/underscore-min',
+            'spec/lib/sinon-1.6.0.js',
+            'spec/lib/jasmine-jquery.js',
+            'spec/lib/jasmine-sinon.js'
+            ],
           host: 'http://127.0.0.1:8000/',
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
@@ -126,12 +152,9 @@ module.exports = function(grunt) {
                 mainConfigFile: './assets/javascripts/main.js',
                 dir: './assets/build/',
                 fileExclusionRegExp: /^\.|node_modules|Gruntfile|\.md|package.json/,
-                // optimize: 'none',
                 modules: [
                     {
                         name: 'main'
-                        // include: ['module'],
-                        // exclude: ['module']
                     }
                 ]
             }
@@ -166,10 +189,7 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
-  // grunt.loadNpmTasks('grunt-contrib-uglify');
-  // grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-coffeelint');
+  // grunt.loadNpmTasks('grunt-html-validation');
   require('load-grunt-tasks')(grunt);
 
   // Default task(s).
@@ -178,6 +198,8 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['connect', 'watch']);
 
   grunt.registerTask('test', ['connect', 'jasmine']);
+
+  grunt.registerTask('validate', ['csslint', 'coffeelint', 'validation']);
 
   grunt.registerTask('release', ['test', 'compass', 'imagemin', "coffee", "coffeelint", "htmlmin", 'uglify', 'requirejs']);
 };
