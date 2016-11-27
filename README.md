@@ -13,7 +13,7 @@ A image replacement example using Require, CoffeeScript and Compass
 ## JavaScript
 All JS written in CoffeeScript - http://coffeescript.org/
 
-All JS Tested using Jasmine - http://pivotal.github.io/jasmine/
+All JS Tested using Jasmine - https://jasmine.github.io/
 
 Set up using RequireJS and AMD methodology - http://www.requirejs.org/
 
